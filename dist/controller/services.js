@@ -15,8 +15,7 @@ if (!apiKey) {
 }
 const googleAI = new generative_ai_1.GoogleGenerativeAI(apiKey);
 const generateMCQs = async (text, language, questionType) => {
-    console.log("Generating MCQs...", questionType);
-    const prompt = `Generate 5 multiple-choice ${questionType} questions (MCQs) in ${language} from the following text:
+    const prompt = `Generate 10 multiple-choice ${questionType} questions (MCQs) in ${language} from the following text:
 
   ${text}
   
@@ -52,9 +51,8 @@ const generateAIContent = async (prompt) => {
     return generatedText;
 };
 function parseMCQs(text) {
-    console.log("MCQ Text", text);
     const mcqs = [];
-    const mcqRegex = /Question:\s*(.+?)\nOptions:\nA\)\s*(.+?)\nB\)\s*(.+?)\nC\)\s*(.+?)\nD\)\s*(.+?)\nAnswer:\s*([A-D])/gs;
+    const mcqRegex = /Question:\s*(.+?)\s*\nOptions:\s*\nA\)\s*(.+?)\s*\nB\)\s*(.+?)\s*\nC\)\s*(.+?)\s*\nD\)\s*(.+?)\s*\nAnswer:\s*([A-D])/gs;
     let match;
     while ((match = mcqRegex.exec(text)) !== null) {
         mcqs.push({
@@ -68,12 +66,10 @@ function parseMCQs(text) {
             answer: match[6].trim(),
         });
     }
-    console.log("MCQ Question:", mcqs);
-    return mcqs.length > 0 ? mcqs : text;
+    return mcqs;
 }
 const generateShortQuestions = async (text, language, questionType) => {
-    console.log("Generating Short Questions...", questionType);
-    const prompt = `Generate 5 short ${questionType} questions and answers in ${language} from the following text:
+    const prompt = `Generate 10 short ${questionType} questions and answers in ${language} from the following text:
 
   ${text}
   
@@ -100,8 +96,7 @@ function parseQuestions(text) {
     return questions;
 }
 const generateLongQuestions = async (text, language, questionType) => {
-    console.log("Generating Long Questions...", questionType);
-    const prompt = `Generate 5 long ${questionType} questions and answers in ${language} from the following text:
+    const prompt = `Generate 10 long ${questionType} questions and answers in ${language} from the following text:
 
   ${text}
   

@@ -29,9 +29,7 @@ export const generateMCQs = async (
   language: string,
   questionType: string
 ): Promise<MCQ[]> => {
-  console.log("Generating MCQs...", questionType);
-
-  const prompt = `Generate 5 multiple-choice ${questionType} questions (MCQs) in ${language} from the following text:
+  const prompt = `Generate 10 multiple-choice ${questionType} questions (MCQs) in ${language} from the following text:
 
   ${text}
   
@@ -70,11 +68,10 @@ const generateAIContent = async (prompt: string): Promise<string> => {
   return generatedText;
 };
 
-export function parseMCQs(text: string): MCQ[] | any {
-  console.log("MCQ Text", text);
+export function parseMCQs(text: string): MCQ[] {
   const mcqs: MCQ[] = [];
   const mcqRegex =
-    /Question:\s*(.+?)\nOptions:\nA\)\s*(.+?)\nB\)\s*(.+?)\nC\)\s*(.+?)\nD\)\s*(.+?)\nAnswer:\s*([A-D])/gs;
+    /Question:\s*(.+?)\s*\nOptions:\s*\nA\)\s*(.+?)\s*\nB\)\s*(.+?)\s*\nC\)\s*(.+?)\s*\nD\)\s*(.+?)\s*\nAnswer:\s*([A-D])/gs;
 
   let match;
   while ((match = mcqRegex.exec(text)) !== null) {
@@ -89,8 +86,8 @@ export function parseMCQs(text: string): MCQ[] | any {
       answer: match[6].trim(),
     });
   }
-  console.log("MCQ Question:", mcqs);
-  return mcqs.length > 0 ? mcqs : text;
+
+  return mcqs;
 }
 
 export interface Question {
@@ -103,8 +100,7 @@ export const generateShortQuestions = async (
   language: string,
   questionType: string
 ): Promise<Question[]> => {
-  console.log("Generating Short Questions...", questionType);
-  const prompt = `Generate 5 short ${questionType} questions and answers in ${language} from the following text:
+  const prompt = `Generate 10 short ${questionType} questions and answers in ${language} from the following text:
 
   ${text}
   
@@ -143,8 +139,7 @@ export const generateLongQuestions = async (
   language: string,
   questionType: string
 ) => {
-  console.log("Generating Long Questions...", questionType);
-  const prompt = `Generate 5 long ${questionType} questions and answers in ${language} from the following text:
+  const prompt = `Generate 10 long ${questionType} questions and answers in ${language} from the following text:
 
   ${text}
   
