@@ -45,7 +45,7 @@ if (!fs.existsSync(UPLOAD_DIR)) {
     fs.mkdirSync(UPLOAD_DIR);
 }
 const setCorsHeaders = (res) => {
-    res.setHeader("Access-Control-Allow-Origin", "http://scarce-godwcscdevernment.surge.sh");
+    res.setHeader("Access-Control-Allow-Origin", "https://half-country.surge.sh");
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
     res.setHeader("Access-Control-Allow-Credentials", "true");
